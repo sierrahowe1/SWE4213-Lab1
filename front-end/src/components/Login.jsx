@@ -21,7 +21,7 @@ const Login = ({ onLogin, onSignUpClick }) => {
                 }),
             });
 
-        const fromUNB = email.endsWith("@unb.ca");
+        
 
     
 

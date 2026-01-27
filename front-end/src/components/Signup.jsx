@@ -23,6 +23,8 @@ const Signup = ({ onBackToLogin }) => {
                 }),
             });
 
+            const fromUNB = email.endsWith("@unb.ca");
+
             if(!fromUNB) {
                 setError("Email must end in @unb.ca.");
                 return;
