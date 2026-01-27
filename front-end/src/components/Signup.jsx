@@ -23,6 +23,16 @@ const Signup = ({ onBackToLogin }) => {
                 }),
             });
 
+            if(!fromUNB) {
+                setError("Email must end in @unb.ca.");
+                return;
+            }
+    
+            if(password.length < 8) {
+                setError("Password must be at least 8 characters");
+                return;
+            }
+
             const data = await response.json();
 
             if (response.ok) {
