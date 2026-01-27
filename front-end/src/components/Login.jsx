@@ -21,6 +21,19 @@ const Login = ({ onLogin, onSignUpClick }) => {
                 }),
             });
 
+        const fromUNB = email.endsWith("@unb.ca");
+
+        if(!fromUNB) {
+            setError("Email must end in @unb.ca.");
+            return;
+        }
+
+        if(password.length < 8) {
+            setError("Password must be at least 8 characters");
+            return;
+        }
+
+
             const data = await response.json();
 
             if (response.ok) {
@@ -57,7 +70,7 @@ const Login = ({ onLogin, onSignUpClick }) => {
                 <input
                     type="password"
                     required
-                    placeholder="Password"
+                    placeholder="Password (min 6 characters)"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-slate-800 border border-slate-700 p-3 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-all"
