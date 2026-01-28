@@ -8,12 +8,27 @@ const Listings = ({ onSelectItem, myListings }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleDelete = (id) => {
-        setProducts(products.filter(product => product.id !== id));
+    const handleDelete = async (id) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:3000/products/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}`}
+            });
+
+            if (!response.ok) throw new Error('Failed to delete product');
+
+            setProducts(products.filter(product => product.id !== id));
+
+        }
+        catch(err) {
+            console.error(err);
+            alert("Delete could not be completed.")
+        }
+        
     };
 
-    console.log(products);
-
+    
     const fetchProducts = async () => {
         setLoading(true);
         try {
@@ -56,6 +71,8 @@ const Listings = ({ onSelectItem, myListings }) => {
                 </h1>
             </div>
 
+            
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
 
                 {products.map((product) => (
@@ -66,7 +83,7 @@ const Listings = ({ onSelectItem, myListings }) => {
                         title={product.title}
                         price={product.price}
                         onView={() => onSelectItem(product)}
-                        deleteCard={handleDelete}
+                        deleteCard={myListings ? handleDelete : null}
                     />
                 ))}
 

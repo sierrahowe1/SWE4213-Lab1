@@ -25,10 +25,12 @@ const ItemCard = ({ id, image, title, price, onView, deleteCard }) => {
                     </span>
 
 
-                    <button onClick = {() => {deleteCard(id)}} 
-                    className = "absolute top-2 right-2 text-red-500 hover:text-red-700">
-                        X
+                    {deleteCard && (<button onClick = {() => {deleteCard(id)}} 
+                    className = "absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                        x
                     </button>
+
+                    )}
 
 
                     <button
