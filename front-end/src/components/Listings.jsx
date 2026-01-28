@@ -83,6 +83,7 @@ const Listings = ({ onSelectItem, myListings }) => {
                         title={product.title}
                         price={product.price}
                         onView={() => onSelectItem(product)}
+                        created_at = {product.created_at}
                         deleteCard={myListings ? handleDelete : null}
                     />
                 ))}

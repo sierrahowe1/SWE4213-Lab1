@@ -17,6 +17,8 @@ function App() {
     setMyListings(false);
   }
 
+
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-950">
       {!isLoggedIn ? (
