@@ -12,6 +12,8 @@ const Listings = ({ onSelectItem, myListings }) => {
         setProducts(products.filter(product => product.id !== id));
     };
 
+    console.log(products);
+
     const fetchProducts = async () => {
         setLoading(true);
         try {

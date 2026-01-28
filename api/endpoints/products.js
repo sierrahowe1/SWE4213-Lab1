@@ -49,7 +49,4 @@ router.post("/products", authcheck, async (req, res) => {
 });
 
 
-
-
-
 module.exports = router;
