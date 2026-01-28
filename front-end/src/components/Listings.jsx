@@ -59,6 +59,7 @@ const Listings = ({ onSelectItem, myListings }) => {
                 {products.map((product) => (
                     <ItemCard
                         key={product.id}
+                        id = {product.id}
                         image={product.image_url || `https://picsum.photos/seed/${product.id}/400/400`}
                         title={product.title}
                         price={product.price}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ItemCard = ({ image, title, price, onView, deleteCard }) => {
+const ItemCard = ({ id, image, title, price, onView, deleteCard }) => {
     return (
         <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer group flex flex-col h-full">
 
@@ -25,7 +25,7 @@ const ItemCard = ({ image, title, price, onView, deleteCard }) => {
                     </span>
 
 
-                    <button onClick = {() => deleteCard(id)} 
+                    <button onClick = {() => {deleteCard(id)}} 
                     className = "absolute top-2 right-2 text-red-500 hover:text-red-700">
                         X
                     </button>
