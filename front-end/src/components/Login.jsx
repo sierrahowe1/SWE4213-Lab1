@@ -21,10 +21,6 @@ const Login = ({ onLogin, onSignUpClick }) => {
                 }),
             });
 
-        
-
-    
-
 
             const data = await response.json();
 

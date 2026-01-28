@@ -8,6 +8,10 @@ const Listings = ({ onSelectItem, myListings }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const handleDelete = (id) => {
+        setProducts(products.filter(product => product.id !== id));
+    };
+
     const fetchProducts = async () => {
         setLoading(true);
         try {
@@ -59,6 +63,7 @@ const Listings = ({ onSelectItem, myListings }) => {
                         title={product.title}
                         price={product.price}
                         onView={() => onSelectItem(product)}
+                        deleteCard={handleDelete}
                     />
                 ))}
 

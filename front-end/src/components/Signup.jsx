@@ -6,6 +6,13 @@ const Signup = ({ onBackToLogin }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    const fromUNB = email.endsWith("@unb.ca");
+    const validName = name.length > 0;
+    const validPassword = password.length >= 8;
+
+
+            const validInput = fromUNB && validName && validPassword;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -22,13 +29,6 @@ const Signup = ({ onBackToLogin }) => {
                     password: password
                 }),
             });
-
-            const fromUNB = email.endsWith("@unb.ca");
-            const validName = name.length > 0;
-            const validPassword = password.length >= 8;
-
-
-            const validInput = fromUNB && validName && validPassword;
 
             if(!fromUNB) {
                 setError("Email must end in @unb.ca.");

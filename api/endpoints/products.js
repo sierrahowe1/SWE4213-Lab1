@@ -48,6 +48,15 @@ router.post("/products", authcheck, async (req, res) => {
     }
 });
 
+router.delete('/products/:id', authcheck, async (req, res) => {
+    const pool = req.app.get('db');
+
+    try {
+        const result = await pool.query(
+            DELETE FROM products WHERE id = 1;
+
+});
+
 
 
 module.exports = router;
