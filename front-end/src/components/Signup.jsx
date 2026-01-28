@@ -24,6 +24,11 @@ const Signup = ({ onBackToLogin }) => {
             });
 
             const fromUNB = email.endsWith("@unb.ca");
+            const validName = name.length > 0;
+            const validPassword = password.length >= 8;
+
+
+            const validInput = fromUNB && validName && validPassword;
 
             if(!fromUNB) {
                 setError("Email must end in @unb.ca.");
@@ -89,6 +94,7 @@ const Signup = ({ onBackToLogin }) => {
 
                 <button
                     type="submit"
+                    disabled={!validInput}
                     className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition-colors"
                 >
                     Create Account

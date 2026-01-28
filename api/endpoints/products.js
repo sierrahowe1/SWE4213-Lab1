@@ -48,4 +48,6 @@ router.post("/products", authcheck, async (req, res) => {
     }
 });
 
+router.delete("products/my")
+
 module.exports = router;
