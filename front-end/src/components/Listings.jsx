@@ -36,13 +36,18 @@ const Listings = ({ onSelectItem, myListings }) => {
             const endpoint = myListings
                 ? 'http://localhost:3000/products/mylistings'
                 : 'http://localhost:3000/products';
+            
+            const headers = {
+                'Content-Type': 'application/json',
+            };
+
+            if(token) {
+                header.Authorization = `Bearer ${token}`;
+            }
 
             const response = await fetch(endpoint, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
+                headers,
             });
 
             if (!response.ok) throw new Error('Failed to fetch products');
