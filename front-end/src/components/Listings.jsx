@@ -9,8 +9,9 @@ const Listings = ({ onSelectItem, myListings }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleDelete = async (id) => {
+        const token = localStorage.getItem('token');
         try {
-            const token = localStorage.getItem('token');
+            
             const response = await fetch(`http://localhost:3000/products/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}`}
@@ -18,7 +19,7 @@ const Listings = ({ onSelectItem, myListings }) => {
 
             if (!response.ok) throw new Error('Failed to delete product');
 
-            setProducts(products.filter(product => product.id !== id));
+            setProducts(products.filter((product) => product.id !== id));
 
         }
         catch(err) {
@@ -36,18 +37,13 @@ const Listings = ({ onSelectItem, myListings }) => {
             const endpoint = myListings
                 ? 'http://localhost:3000/products/mylistings'
                 : 'http://localhost:3000/products';
-            
-            const headers = {
-                'Content-Type': 'application/json',
-            };
-
-            if(token) {
-                header.Authorization = `Bearer ${token}`;
-            }
 
             const response = await fetch(endpoint, {
                 method: 'GET',
-                headers,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             });
 
             if (!response.ok) throw new Error('Failed to fetch products');
