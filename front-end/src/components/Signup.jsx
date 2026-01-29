@@ -95,7 +95,11 @@ const Signup = ({ onBackToLogin }) => {
                 <button
                     type="submit"
                     disabled={!validInput}
-                    className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition-colors"
+                    className="w-full bg-blue-700 hover:bg-blue-800 disabled:bg-blue-900
+                    disabled:text-gray-400
+                    disabled:cursor-not-allowed
+                    disabled:hover:bg-blue-900
+                    text-white text-white font-bold py-3 rounded-lg transition-colors"
                 >
                     Create Account
                 </button>

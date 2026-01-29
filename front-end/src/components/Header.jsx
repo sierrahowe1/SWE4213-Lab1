@@ -4,6 +4,8 @@ const Header = ({ onLogout, setMyListings }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     return (
+
+        
         <header className="w-full bg-slate-900 text-gray-300 border-b border-slate-800 sticky top-0 z-50">
             <div className="w-full px-[20px] sm:px-[50px] py-4 flex items-center justify-between">
 
