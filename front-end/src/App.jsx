@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import AuthContainer from './components/AuthContainer'
@@ -16,6 +16,34 @@ function App() {
     setIsLoggedIn(false);
     setMyListings(false);
   }
+
+  useEffect(() => {//when application loads, this  happens
+    const token = localStorage.getItem("token");//holds the login token
+
+    if(!token) {//checks if we still have the login token, if not we are not logged in
+      setIsLoggedIn(false);
+      return;
+    }
+
+    fetch('http://localhost:3000/auth/status', {//Here we are asking the server if the login token is still good
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => {//checking the response from the server
+      if(!res.ok) throw new Error("Not logged in.")//if the response is not ok, we know the user is not logged in
+      return res.json();
+    })
+    .then(() => {
+      setIsLoggedIn(true);//otherwise, we know the user is logged in
+    })
+    .catch(() => {
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+    });
+
+
+  }, []);
 
 
 
