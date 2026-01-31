@@ -4,7 +4,24 @@ const ItemCard = ({ id, image, title, price, onView, deleteCard, created_at }) =
     return (
         <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer group flex flex-col h-full">
 
-           
+
+                    <h5 className="text-slate-500 text-[10px] uppercase tracking-wide text-right">
+                        {" "}
+                        {new Date(created_at).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        })}
+                    </h5>
+
+           {/* --- Product Image Section --- */}
+           <div className="relative aspect-square w-full bg-slate-800 overflow-hidden">
+                <img
+                    src={image || 'https://via.placeholder.com/400x400?text=No+Image'}
+                    alt={title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+            </div>
 
             {/* --- Product Details Section --- */}
             <div className="p-3 flex flex-col flex-grow">
@@ -27,24 +44,6 @@ const ItemCard = ({ id, image, title, price, onView, deleteCard, created_at }) =
 
                     )}
 
-                    <h5 className="text-slate-500 text-[10px] uppercase tracking-wide text-right">
-                        {" "}
-                        {new Date(created_at).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                        })}
-                    </h5>
-
-
-                     {/* --- Product Image Section --- */}
-            <div className="relative aspect-square w-full bg-slate-800 overflow-hidden">
-                <img
-                    src={image || 'https://via.placeholder.com/400x400?text=No+Image'}
-                    alt={title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-            </div>
 
 
             <div className="flex">
