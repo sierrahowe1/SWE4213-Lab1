@@ -33,7 +33,7 @@ const Listings = ({ onSelectItem, myListings, searchTerm }) => {
 
     
 
-    const filterSearch = searchTerm.trim() === "" ? products : products.filter(product =>
+    const filterSearch = products.filter(product =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
 

@@ -27,7 +27,6 @@ const Header = ({ onLogout, setMyListings, searchTerm, setSearchTerm}) => {
                             className="w-full bg-slate-800 border border-slate-700 focus:border-red-700 rounded-lg py-2 px-4 pl-10 text-sm text-white focus:outline-none transition-all"
                             value={searchTerm}
                             onChange = {(e) => 
-                                
                                 setSearchTerm(e.target.value)
                             }
                         />
