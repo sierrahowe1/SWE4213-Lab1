@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+
 
 const ContactModal = ({ isOpen, onClose, email, title }) => {
+
+    const [copy, setCopied] = useState(false);
+
+    const handleCopy = async () => {
+        try {
+            navigator.clipboard.writeText(email);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+        catch (err) {
+            console.err("Email could not be copied.");
+        }
+    };
+
+
     if (!isOpen) return null;
 
     return (
@@ -25,6 +42,12 @@ const ContactModal = ({ isOpen, onClose, email, title }) => {
                     </p>
 
                     <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-2">
+                        <button
+                        onClick={handleCopy}
+                        className="ml-auto bg-slate-700 absolute top-38 left-85 hover:bg-slate-600 text-white text-[10px] uppercase tracking-wider font-bold py-1 px-2.5 rounded transition-colors border border-slate-600 active:scale-95">
+                        {copy ? 'Copied!' : 'Copy'}
+                         
+                        </button>
                         <p className="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">Seller Email</p>
                         <p className="text-lg text-blue-400 font-mono select-all">{email}</p>
                     </div>
