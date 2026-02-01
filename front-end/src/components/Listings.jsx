@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ItemCard from './ItemCard';
 import CreateListingModal from './CreateListingModal'; // Import your component
 
-const Listings = ({ onSelectItem, myListings }) => {
+const Listings = ({ onSelectItem, myListings, searchTerm }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    
+    
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,6 +32,14 @@ const Listings = ({ onSelectItem, myListings }) => {
     };
 
     
+
+    const filterSearch = searchTerm.trim() === "" ? products : products.filter(product =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        
+
+    
     const fetchProducts = async () => {
         setLoading(true);
         try {
@@ -49,7 +59,7 @@ const Listings = ({ onSelectItem, myListings }) => {
             if (!response.ok) throw new Error('Failed to fetch products');
 
             const data = await response.json();
-            const finalData = myListings ? data : data.sort(() => Math.random() - 0.5);
+            const finalData = myListings ? data : [...data].sort(() => Math.random() - 0.5);
             setProducts(finalData);
         } catch (err) {
             // Do nothing 
@@ -72,11 +82,11 @@ const Listings = ({ onSelectItem, myListings }) => {
                 </h1>
             </div>
 
-            
+        
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
 
-                {products.map((product) => (
+                {filterSearch.map((product) => (
                     <ItemCard
                         key={product.id}
                         id = {product.id}
@@ -88,6 +98,8 @@ const Listings = ({ onSelectItem, myListings }) => {
                         deleteCard={myListings ? handleDelete : null}
                     />
                 ))}
+
+                
 
                 {myListings && (
                     <button
@@ -101,6 +113,8 @@ const Listings = ({ onSelectItem, myListings }) => {
                     </button>
                 )}
             </div>
+
+          
 
             <CreateListingModal
                 isOpen={isModalOpen}
