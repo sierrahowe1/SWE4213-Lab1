@@ -52,20 +52,20 @@ const Header = ({ onLogout, setMyListings, searchTerm, setSearchTerm, sorting, s
                             className="flex items-center focus:outline-none group"
                         >
                             <span className="mr-2">
-        {/* Direct conditional rendering */}
-        {sorting === 'price-asc' ? 'Price: Low to High' :
-         sorting === 'price-desc' ? 'Price: High to Low' :
-         sorting === 'date-desc' ? 'Newest First' :
-         sorting === 'date-asc' ? 'Oldest First' : 'Sort by...'}
-      </span>
-      <svg 
-        className={`w-4 h-4 transition-transform ${otherDropdown ? 'rotate-180' : ''}`}
-        fill="none" 
-        stroke="currentColor" 
-        viewBox="0 0 24 24"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-      </svg>
+        
+                                {sorting === 'price-asc' ? 'Price: Low to High' :
+                                sorting === 'price-desc' ? 'Price: High to Low' :
+                                sorting === 'date-desc' ? 'Newest First' :
+                                sorting === 'date-asc' ? 'Oldest First' : 'Sort by...'}
+                            </span>
+                            <svg 
+                                className={`w-4 h-4 transition-transform ${otherDropdown ? 'rotate-180' : ''}`}
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                            >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
 
                         
