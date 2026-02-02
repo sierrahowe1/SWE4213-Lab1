@@ -38,4 +38,4 @@ Open another terminal in vscode.
 
 ## AI USE:
 
-I used AI for learning the flow of the app, learning how components work, researching, and bug fixes on the enhancements.
+I used AI for learning the flow of the app, learning how components work, researching, and bug fixes on the enhancements. Was used mostly when working on the dropdown enhancement
