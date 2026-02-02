@@ -2,15 +2,22 @@
 import { useState, useEffect } from 'react'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import ItemCard from './components/ItemCard'
 import AuthContainer from './components/AuthContainer'
 import ContactModal from './components/ContactModal'
 import Listings from './components/Listings' // 1. Import the new component
+import SelectDropdown from "./components/Header";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [myListings, setMyListings] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sorting, setSort] = useState("");
+
+  
+  
+  
 
   function onLogout() {
     localStorage.removeItem('token');
@@ -56,11 +63,11 @@ function App() {
         </div>
       ) : (
         <>
-          <Header setMyListings={setMyListings} onLogout={onLogout} setSearchTerm={setSearchTerm}/>
+          <Header setMyListings={setMyListings} onLogout={onLogout} setSearchTerm={setSearchTerm} sorting={sorting} setSort={setSort} />
 
           <main className="flex-grow px-[50px] py-10">
             <Listings onSelectItem={(item) => setSelectedItem(item)} myListings={myListings} 
-            searchTerm={searchTerm}
+            searchTerm={searchTerm} sorting={sorting} setSort={setSort}
             />
           </main>
 

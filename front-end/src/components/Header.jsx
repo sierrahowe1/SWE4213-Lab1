@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 
 
-const Header = ({ onLogout, setMyListings, searchTerm, setSearchTerm}) => {
+
+
+
+const Header = ({ onLogout, setMyListings, searchTerm, setSearchTerm, sorting, setSort }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [otherDropdown, setOtherDropdown] = useState(false);
+
+    
     
     
 
@@ -38,6 +44,87 @@ const Header = ({ onLogout, setMyListings, searchTerm, setSearchTerm}) => {
                         </div>
                     </div>
                 </div>
+
+                <div className="flex-1 flex justify-end">
+                    <div className="relative">
+                        <button
+                            onClick={() => setOtherDropdown(!otherDropdown)}
+                            className="flex items-center focus:outline-none group"
+                        >
+                            <span className="mr-2">
+        {/* Direct conditional rendering */}
+        {sorting === 'price-asc' ? 'Price: Low to High' :
+         sorting === 'price-desc' ? 'Price: High to Low' :
+         sorting === 'date-desc' ? 'Newest First' :
+         sorting === 'date-asc' ? 'Oldest First' : 'Sort by...'}
+      </span>
+      <svg 
+        className={`w-4 h-4 transition-transform ${otherDropdown ? 'rotate-180' : ''}`}
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+      </svg>
+                        </button>
+
+                        
+
+                        {otherDropdown && (
+                            <div className="absolute top-5 right-1 w-56 bg-slate-900 text-gray-400 border border-slate-700 rounded-md shadow-lg py-2 z-50">
+                                
+                                <div className="lg:hidden border-b border-slate-700 mb-2 pb-2">
+                                    
+                                </div>
+
+                                <button 
+                                    onClick={() => {
+                                        setSort('price-desc');
+                                        setOtherDropdown(false);
+                                    }}
+                                    className="block w-full text-left px-4 py-2 text-sm hover:bg-slate-700">
+                                        Price: High to Low
+                                    </button>
+                                
+                                <button 
+                                    onClick={() => {
+                                        setSort('price-asc');
+                                        setOtherDropdown(false);
+                                    }}
+                                    className="block w-full text-left px-4 py-2 text-sm hover:bg-slate-700">
+                                        Price: Low to High
+                                </button>
+                            
+                            <button 
+                                    onClick={() => {
+                                        setSort('date-desc');
+                                        setOtherDropdown(false);
+                                    }}
+                                    className="block w-full text-left px-4 py-2 text-sm hover:bg-slate-700">
+                                        Date Posted: Newest
+                                </button>
+
+                                
+                                <button 
+                                    onClick={() => {
+                                        setSort('date-asc');
+                                        setOtherDropdown(false);
+                                    }}
+                                    className="block w-full text-left px-4 py-2 text-sm hover:bg-slate-700">
+                                    Date Posted: Oldest
+                                </button>
+                                
+                            </div>
+                        )}
+                    
+                        
+
+                    </div>
+                </div>
+
+                
+
+                
 
                 <div className="flex-1 flex justify-end">
                     <div className="relative">

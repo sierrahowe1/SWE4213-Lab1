@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ItemCard from './ItemCard';
 import CreateListingModal from './CreateListingModal'; // Import your component
 
-const Listings = ({ onSelectItem, myListings, searchTerm }) => {
+const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     
@@ -31,11 +31,34 @@ const Listings = ({ onSelectItem, myListings, searchTerm }) => {
         
     };
 
+   
+
     
 
     const filterSearch = products.filter(product =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
+    
+    const sortProducts = (sortingProducts) => {
+        if (!sorting) return sortingProducts;
+    
+
+        const sorted = [...sortingProducts];
+
+        switch(sorting) {
+            case 'price-asc':
+                return sorted.sort((a,b) => Number(a.price) - Number(b.price));
+            case 'price-desc':
+                return sorted.sort((a,b) => Number(b.price) - Number(a.price));
+            case 'date-asc':
+                return sorted.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+            case 'date-desc':
+                return sorted.sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
+            default:
+                return sorted;
+
+        }
+    };
 
         
 
