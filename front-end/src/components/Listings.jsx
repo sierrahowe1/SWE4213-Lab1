@@ -5,40 +5,29 @@ import CreateListingModal from './CreateListingModal'; // Import your component
 const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    
-    
-
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleDelete = async (id) => {
         const token = localStorage.getItem('token');
         try {
-            
             const response = await fetch(`http://localhost:3000/products/${id}`, {
                 method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}`}
+                headers: { 'Authorization': `Bearer ${token}` }
             });
 
             if (!response.ok) throw new Error('Failed to delete product');
 
             setProducts(products.filter((product) => product.id !== id));
-
-        }
-        catch(err) {
+        } catch (err) {
             console.error(err);
             alert("Delete could not be completed.")
         }
-        
     };
 
-   
-
-    
-
     const sortProducts = (sortingProducts) => {
-        if (!sorting) return sortingProducts;
+        if (!sorting) return sortingProducts || [];
 
-        const sorted = [...sortingProducts];
+        const sorted = [...(sortingProducts || [])];
 
         switch (sorting) {
             case 'price-asc':
@@ -64,14 +53,15 @@ const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
         }
     };
 
-    // later, apply sorting to the filtered results:
-    const filterSearch = products.filter(product =>
-        product.title.toLowerCase().includes((searchTerm || '').toLowerCase())
+    // Filter by search term
+    const filterSearch = (products || []).filter(product =>
+        (product.title || '').toLowerCase().includes((searchTerm || '').toLowerCase())
     );
 
-    const displayedProducts = sortProducts(filterSearch);
+    // Apply sorting to the filtered results (ensure array)
+    let displayedProducts = sortProducts(filterSearch);
+    if (!Array.isArray(displayedProducts)) displayedProducts = [];
 
-    
     const fetchProducts = async () => {
         setLoading(true);
         try {
@@ -91,10 +81,12 @@ const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
             if (!response.ok) throw new Error('Failed to fetch products');
 
             const data = await response.json();
-            const finalData = myListings ? data : [...data].sort(() => Math.random() - 0.5);
+            // Only randomize when NOT viewing "myListings" AND no sorting is active
+            const finalData = myListings ? data : (sorting ? data : [...data].sort(() => Math.random() - 0.5));
             setProducts(finalData);
+            console.log('fetchProducts setProducts order ids:', finalData.map(p => p.id));
         } catch (err) {
-            // Do nothing 
+            console.error('fetchProducts error:', err);
         } finally {
             setLoading(false);
         }
@@ -102,7 +94,7 @@ const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
 
     useEffect(() => {
         fetchProducts();
-    }, [myListings]);
+    }, [myListings]); // keep sorting out if you're doing client-side sorting
 
     if (loading) return <div className="text-slate-400 text-center py-20 italic">Loading...</div>;
 
@@ -114,24 +106,20 @@ const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
                 </h1>
             </div>
 
-        
-
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
 
-                {filterSearch.map((product) => (
+                {Array.isArray(displayedProducts) && displayedProducts.map((product) => (
                     <ItemCard
                         key={product.id}
-                        id = {product.id}
+                        id={product.id}
                         image={product.image_url || `https://picsum.photos/seed/${product.id}/400/400`}
                         title={product.title}
                         price={product.price}
                         onView={() => onSelectItem(product)}
-                        created_at = {product.created_at}
+                        created_at={product.created_at}
                         deleteCard={myListings ? handleDelete : null}
                     />
                 ))}
-
-                
 
                 {myListings && (
                     <button
@@ -145,8 +133,6 @@ const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
                     </button>
                 )}
             </div>
-
-          
 
             <CreateListingModal
                 isOpen={isModalOpen}
