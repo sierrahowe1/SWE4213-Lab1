@@ -79,6 +79,7 @@ const Header = ({ onLogout, setMyListings, searchTerm, setSearchTerm, sorting, s
 
                                 <button 
                                     onClick={() => {
+                                        console.log("Clicking Price hl");
                                         setSort('price-desc');
                                         setOtherDropdown(false);
                                     }}

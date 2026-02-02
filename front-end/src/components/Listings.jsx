@@ -35,32 +35,41 @@ const Listings = ({ onSelectItem, myListings, searchTerm, sorting }) => {
 
     
 
-    const filterSearch = products.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    
     const sortProducts = (sortingProducts) => {
         if (!sorting) return sortingProducts;
-    
 
         const sorted = [...sortingProducts];
 
-        switch(sorting) {
+        switch (sorting) {
             case 'price-asc':
-                return sorted.sort((a,b) => Number(a.price) - Number(b.price));
+                return sorted.sort((a, b) => Number(a.price) - Number(b.price));
             case 'price-desc':
-                return sorted.sort((a,b) => Number(b.price) - Number(a.price));
+                return sorted.sort((a, b) => Number(b.price) - Number(a.price));
             case 'date-asc':
-                return sorted.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+                // Oldest first
+                return sorted.sort((a, b) => {
+                    const ta = new Date(a.created_at || 0).getTime();
+                    const tb = new Date(b.created_at || 0).getTime();
+                    return ta - tb;
+                });
             case 'date-desc':
-                return sorted.sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
+                // Newest first
+                return sorted.sort((a, b) => {
+                    const ta = new Date(a.created_at || 0).getTime();
+                    const tb = new Date(b.created_at || 0).getTime();
+                    return tb - ta;
+                });
             default:
                 return sorted;
-
         }
     };
 
-        
+    // later, apply sorting to the filtered results:
+    const filterSearch = products.filter(product =>
+        product.title.toLowerCase().includes((searchTerm || '').toLowerCase())
+    );
+
+    const displayedProducts = sortProducts(filterSearch);
 
     
     const fetchProducts = async () => {

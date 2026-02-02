@@ -54,6 +54,10 @@ function App() {
   }, []);
 
 
+  useEffect(() => {
+    console.log('App sorting state changed:', sorting);
+  }, [sorting]);
+
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950">
