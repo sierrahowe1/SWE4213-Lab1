@@ -2,7 +2,7 @@
 Sierra Howe
 3485365
 
-GitHub Repo Link: https://github.com/sierrahowe1/SWE4213-Lab1/edit/main
+GitHub Repo Link: https://github.com/sierrahowe1/SWE4213-Lab1/tree/main
 
 ## AI USE:
 
